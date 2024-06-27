@@ -1,0 +1,21 @@
+.imagesContainer{
+    width:100%;
+    height:500px!important;
+    display:grid;
+    grid-template-columns: 500px 500px;
+    column-gap: 22.2em;
+}
+
+.cardsContainer{
+    width: 100%;
+    height:auto;
+    object-fit: cover;
+  
+}
+
+.cardPhoto {
+    width:584px!important;
+    height:485px!important;
+    object-fit: cover;
+   
+}

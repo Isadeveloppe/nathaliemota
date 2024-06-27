@@ -1,0 +1,52 @@
+*{
+    font-family: 'space-mono', sans-serif;
+}
+
+/*GENERAL*/
+.customize-support{ 
+	width:100%;
+	min-height: 100vh;
+	max-width: 1440px;
+	margin-left:auto;
+	margin-right: auto;
+}
+
+.body{
+
+	font-family: 'Space_Mono';
+}
+
+main{
+	min-height:70vh;
+}
+
+.novisible{
+	display:none;
+}
+
+@font-face {
+	font-family: 'Space_Mono';
+	font-style: normal;
+    font-weight: 400;
+	src: url('assets/fonts/Space_Mono/SpaceMono-Bold.ttf') format('true type');
+}
+
+@font-face {
+	font-family: 'Space_Mono';
+	src: url('assets/fonts/Space_Mono/SpaceMono-BoldItalic.ttf') format('true type');
+}
+
+@font-face {
+	font-family: 'Space_Mono';
+	src: url('assets/fonts/Space_Mono/SpaceMono-Italic.ttf') format('true type');
+}
+@font-face {
+	font-family: 'Space_Mono';
+	src: url('assets/fonts/Space_Mono/SpaceMono-Regular.ttf') format('true type');
+}
+@font-face {
+	font-family: 'Poppins';
+	src: url('/assets/fonts/Poppins/Poppins-Black.ttf') format('true type');
+}
+
+

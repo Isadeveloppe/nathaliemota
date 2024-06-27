@@ -1,0 +1,106 @@
+/*RESPONSIVE*/
+
+@media screen and (max-width:380px){
+
+	/*MENU BURGER*/
+
+	.modal_burger{
+		display:flex;
+	}
+
+	.modal_content{
+		display:block;
+		left:-20px;
+
+	}
+
+	.logo{
+		width:135px;
+		height:9px;
+		margin-left:35px;
+	}
+
+	.navbar{
+		display:none;
+	}
+
+	/*FORMULAIRE DE CONTACT*/
+
+	.form-title{
+		font-size: 22px;
+		justify-content: center;
+		line-height:20px;
+	}
+
+	.wpcf7-form{
+		width:100%;
+		border: solid 5px black;
+		border-radius:6px;
+		
+		
+		.wpcf7-form-control{
+			margin-left: 5px;
+		}
+				
+		.form-label{
+			margin-left:5px;
+			line-height:10px;	
+		}
+		
+		.wpcf7-submit{
+		    font-size:12px;
+			background-color:#d8d8d8;
+			margin-left: 30px;
+		}
+		
+		.wpcf7-textarea{
+		  height:210px!important;
+		}	
+	}
+
+			
+	/*POPUP*/
+	.popup-overlay{
+		display:flex;
+		position:fixed;
+		justify-content: center;
+		align-items:center;
+		background:#00000060;
+		top:55px;
+		left:20px;
+	
+	}
+	
+	.popup-salon{
+		display:inline-block;
+		position:relative;
+		background:white;
+		margin-right:50px;
+		line-height: 0px;
+		color:black;
+		border-radius:6px;
+		transition:all 0.4s ease;
+		
+	}
+	
+	
+	.popup-close{
+		position:absolute;
+		top: 10px;
+		right:2px;
+		border-radius:20px;
+		height:20px;
+		width:20px;
+		border:1px solid black;
+		background:white;
+		cursor:pointer;
+		display:flex;
+		justify-content:center;
+		align-items:center;
+		transition:all 0.4s ease;
+	}
+	
+	.popup-close:hover{
+		transform:rotate(180deg);
+	}
+}

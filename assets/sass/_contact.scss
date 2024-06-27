@@ -1,0 +1,55 @@
+/*****CONTACT FORM*****/
+
+.wpcf7-form{
+    position:relative;
+    width:597px;
+    height:791px;
+    border: solid 5px black;
+    display:block;
+    margin-left:auto;
+  
+    }
+
+.wpcf7-form-control{
+    display:flex;
+    width:263px;
+    height:40px;
+    border: solid 1px black;
+    border-radius:6px;
+}
+
+.form-title{
+    display:flex;
+    font-size:44px;
+    font-weight:500;
+    font-style:italic;
+    margin-top:0px;
+    left:-110px;
+}
+
+.form-label{
+    font-size:12px;
+    font-weight:500;
+    line-height:18px;
+    gap:20px;
+}
+
+.form-content{
+ display:flex;
+ justify-content: center;
+ align-items:center;
+ flex-direction:column;
+}
+
+.wpcf7-submit{
+  width:270px!important;
+  height:50px;
+  text-decoration:none!important;
+  font-size:12px;
+  margin-left: 163px;
+  border-radius:2px;
+}
+
+.wpcf7-textarea{
+  height:210px!important;
+}
