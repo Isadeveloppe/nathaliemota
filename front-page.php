@@ -27,21 +27,79 @@ endif ?>
 
 <div class="l"></div>
 
-<div>
-	<span class="categories">Catégories</span>
-	<span class="formats">Formats</span>
-	<span class="trier">Trier par</span>
+<!-- SELECTION-->
+<?php $categoriesList = get_terms(array(
+	'taxonomy'   => 'categorie_photo',
+	'hide_empty' => false,
+)); ?>
+
+<?php $formatsList = get_terms(array(
+	'taxonomy'   => 'format_photo',
+	'hide_empty' => false,
+)); ?>
+
+<?php $trierparsList = get_terms(array(
+	'taxonomy' => 'tri_photo',
+	'hide_empty' => false,
+)); ?>
+
+<div class="filters">
+	<select name="" id="categorie">
+		<option value="">Catégorie</option>
+		<?php foreach ($categoriesList as $categorie) {
+			echo "<option value='" . $categorie->slug . "'>" . $categorie->name . "</option>";
+		}
+
+		?>
+	</select>
 </div>
+
+
+<select name="" id="format">
+	<option value="">Format</option>
+	<?php foreach ($formatsList as $format) {
+		echo "<option value='" . $format->slug . "'>" . $format->name . "</option>";
+	}
+
+	?>
+</select>
+
+<select name="" id="trier par">
+	<option value="">Trier par</option>
+	<?php foreach ($trierparsList as $trierpar) {
+		echo "<option value='" . $trierpar->slug . "'>" . $trierpar->name . "</option>";
+	}
+
+	?>
+</select>
+
+
 
 <div class="catalogue_photos"> <?php get_template_part('templates-parts/photo-block'); ?> </div>
 
+<!-- LIGHTBOX -->
 <div class="lightbox">
-	<button class="lightbox_close">Fermer</button>
-	<button class="lightbox_next"><i class="fa-solid fa-chevron-right"></i></button>
-	<button class="lightbox_prev"><i class="fa-solid fa-chevron-left"></i></button>
-		<div class="lightbox_container"></div>
-	<img src=<?php echo get_theme_file_uri() . '/assets/img/tortue.jpg'; ?>>
+	<button class="lightbox_close"><i class="fa-solid fa-xmark"></i></button>
+	<button class="lightbox_prev"><i class="fa-solid fa-arrow-left"></i></button>
+	<button class="lightbox_next"><i class="fa-solid fa-arrow-right"></i></button>
+
+	<div class="lightbox_container"></div>
+	<img class="photo" src=<?php echo get_theme_file_uri() . '/assets/img/nathalie-15.jpeg.webp'; ?>>
+
+	<!-- Image | Information de la Photo -->
+	<img src="" class="middle-image" />
+	<div class="info-photo">
+		<span id="modal-reference"></span>
+		<span id="modal-category"></span>
+	</div>
 </div>
+</div>
+</div>
+
+
+
+
+
 
 
 <?php get_footer(); ?>
