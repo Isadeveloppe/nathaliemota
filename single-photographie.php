@@ -47,36 +47,39 @@ get_header(); ?>
 
       <div class="infos">
         <p>Cette photo vous intéresse?</p>
-        <button id="contactButton">Contact</button>
+        <button class="contactButton">Contact</button>
 
 
-        <div class="carousel_container">
-        
-          <div class="carousel_track_container">
-            <ul class="carousel-track">
-
+        <div class="thumbnail_container">
+          <div class="current_thumbnail">
             <?php
-            $image_ids = array(91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106); 
-            foreach ($image_ids as $index => $image_id) {
-                $image_url = wp_get_attachment_url($image_id);
-                if ($image_url) {
-                    $current_class = ($index === 0) ? 'current-slide' : '';
-                    echo '<li class="carousel-slide ' . $current_class . '"><img src="' . esc_url($image_url) . '" alt="Image ' . $image_id . '"></li>';
-                }
-            }
+            // Récupérer le post actuel, le post précédent et le post suivant
+            $current_post = get_post();
+            $prev_post = get_previous_post();
+            $next_post = get_next_post();
+
+            // Récupérer les URL des miniatures
+            $current_thumbnail = $current_post ? get_the_post_thumbnail_url($current_post->ID, 'thumbnail') : '';
+            $prev_thumbnail = $prev_post ? get_the_post_thumbnail_url($prev_post->ID, 'thumbnail') : '';
+            $next_thumbnail = $next_post ? get_the_post_thumbnail_url($next_post->ID, 'thumbnail') : '';
             ?>
-            </ul>
-    </div>
-    <div class="carousel-buttons">
-    <button class="carousel-button prev-button">&#10096;</button>
-    <button class="carousel-button next-button">&#10097;</button>
-    </div>
-</div>
 
+            <!-- Conteneur pour afficher la miniature actuelle -->
+            <img id="displayed-thumbnail" src="<?php echo esc_url($current_thumbnail); ?>" alt="Current Thumbnail">
 
+            <nav class="navigation_arrows">
+              <?php if ($prev_post) : ?>
+                <a href="#" class="prev-link" data-image="<?php echo esc_url($prev_thumbnail); ?>">←</a>
+              <?php endif; ?>
+              <?php if ($next_post) : ?>
+                <a href="#" class="next-link" data-image="<?php echo esc_url($next_thumbnail); ?>">→</a>
+              <?php endif; ?>
+            </nav>
+
+          </div>
+        </div>
       </div>
-      </div>
-      </div>
+
 
       <p>Vous aimerez aussi</p><br>
       <div class="imagesContainer">
@@ -112,6 +115,8 @@ get_header(); ?>
       </div>
 
       <?php wp_reset_postdata(); ?>
+
+
 
     </article>
 
