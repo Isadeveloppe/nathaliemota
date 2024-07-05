@@ -1,4 +1,4 @@
-.lightbox_container {
+.lightbox {
     position: fixed;
     top: 0;
     left: 0;
@@ -6,26 +6,81 @@
     height: 100%;
     background-color: rgba(0,0,0,.9);
     z-index: 10;
-    
+    overflow: auto;
+    animation: lightboxIn .5s;
 }
 
 .lightbox_prev,
 .lightbox_next {
-    align-items: center;
-    border:none;
-    color:white;
+    border: none;
     width: 50px;
     height: 100px; 
-    position:relative;
-    top:50%;
-    margin-top:-14px;
-    z-index:11;
-    opacity:.5;
-    cursor:pointer;
-    transition:.3s;
+    position: fixed;
+    top: 50%;
+    margin-top: -50px;
+    z-index: 11;
+    font-size: 40px;
+    color: white;
+    background: transparent;
+    opacity: .5;
+    cursor: pointer;
+    transition: opacity .3s;
 }
 
 .lightbox_prev:hover,
-.lightbox_next:hover{
-    opacity:1;
+.lightbox_next:hover {
+    opacity: 1;
+}
+
+.lightbox_prev {
+    left: 400px;
+}
+
+.lightbox_next {
+    right: 400px;
+}
+
+.lightbox_close {
+    width: 40px;
+    height: 40px;
+    border: none;
+    position: fixed;
+    top: 100px;
+    right: 200px;
+    z-index: 12;
+    opacity: .5;
+    cursor: pointer;
+    transition: opacity .3s;
+    font-size: 50px;
+    color: white;
+    background: transparent;
+}
+
+.lightbox_close:hover {
+    opacity: 1;
+}
+
+.lightbox_container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 100px;
+    margin-right: 100px;
+    overflow: hidden;
+    position:relative;    
+}
+
+.photo{
+    position: initial;
+    max-width: 100vw;
+    max-height: 100vh;
+    object-fit: contain;
+    animation: lightboxIn .5s;
+    margin-left:700px;
+    margin-top:0;
+}
+
+@keyframes lightboxIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
