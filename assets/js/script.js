@@ -16,95 +16,154 @@ closeButton.addEventListener('click', function() {
 });
 
 
-//***** Slide *****//
-document.addEventListener('DOMContentLoaded', function() {
-  const track = document.querySelector('.carousel-track');
-  const slides = Array.from(track.children);
-  const nextButton = document.querySelector('.next-button');
-  const prevButton = document.querySelector('.prev-button');
-  const totalSlides = slides.length;
+//***** Images miniatures*****//
+jQuery(document).ready(function($) {
+  // Fonction pour changer l'image affichée
+  function changeThumbnail(imageUrl) {
+      $('#displayed-thumbnail').attr('src', imageUrl);
+  }
 
-  let currentIndex = 0;
-
-  const updateSlidesPosition = () => {
-      slides.forEach((slide, index) => {
-          slide.style.display = index === currentIndex ? 'block' : 'none';
-      });
-  };
-
-  const moveToSlide = (targetIndex) => {
-      if (targetIndex < 0) {
-          currentIndex = totalSlides - 1;
-      } else if (targetIndex >= totalSlides) {
-          currentIndex = 0;
-      } else {
-          currentIndex = targetIndex;
+  // Événements de survol pour les liens de navigation
+  $('.navigation_arrows a').hover(function() {
+      const imageUrl = $(this).data('image');
+      if (imageUrl) {
+          changeThumbnail(imageUrl);
       }
-      updateSlidesPosition();
-  };
-
-  nextButton.addEventListener('click', () => {
-      moveToSlide(currentIndex + 1);
+  }, function() {
+      // Réinitialiser à l'image actuelle lorsqu'on ne survole plus la flèche
+      const currentImage = "<?php echo esc_url($current_thumbnail); ?>";
+      changeThumbnail(currentImage);
   });
-
-  prevButton.addEventListener('click', () => {
-      moveToSlide(currentIndex - 1);
-  });
-
-  // Initial setup: Afficher la première slide
-  updateSlidesPosition();
 });
 
 
-//*****Requête Ajax*****/
-(function ($) {
-  $(document).ready(function () {
 
-      // Chargment des photographies en Ajax
-      $('.js-load-photographies').click(function (e) {
+/*****FILTRES*****/
+jQuery(document).ready(function($) {
+    const filterList = document.querySelectorAll('.filter');
+    filterList.forEach((filter) => {
+        filter.addEventListener('change', function(event) {
+            const categorie = document.getElementById('categorie').value;
+            const format = document.getElementById('format').value;
+            const orderby = document.getElementById('orderby').value;
+            console.log('Filters:', { categorie, format, orderby });
 
-          // Empêcher l'envoi classique du formulaire
-          e.preventDefault();
+            $.ajax({
+                type: 'POST',
+                url: '/wp-admin/admin-ajax.php',
+                dataType: 'html',
+                data: {
+                    action: 'filter_photos',
+                    category: categorie,
+                    format: format,
+                    orderby: orderby,
+                },
+                success: function(res) {
+                    $('.catalogue_photos').html(res);
+                },
+                error: function(xhr, status, error) {
+                    console.error('AJAX Error:', status, error);
+                }
+            });
+        });
+    });
+});
 
-          // L'URL qui réceptionne les requêtes Ajax dans l'attribut "action" de <form>
-          const ajaxurl = $(this).data('ajaxurl');
 
-          // Les données de notre formulaire
-    // ⚠️ Ne changez pas le nom "action" !
-    const data = {
-      action: $(this).data('action'), 
-      nonce:  $(this).data('nonce'),
-      postid: $(this).data('postid'),
-          }
+/*****LOAD MORE*****/
+jQuery(document).ready(function($) {
+    let page = 1;
 
-          // Pour vérifier qu'on a bien récupéré les données
-          console.log(ajaxurl);
-          console.log(data);
+    $('#load-more').on('click', function() {
+        page++;
+        let button = $(this);
+        let data = {
+            action: 'load_more_photos',
+            page: page
+        };
 
-          // Requête Ajax en JS natif via Fetch
-          fetch(ajaxurl, {
-              method: 'POST',
-              headers: {
-                  'Content-Type': 'application/x-www-form-urlencoded',
-                  'Cache-Control': 'no-cache',
-              },
-              body: new URLSearchParams(data),
-          })
-          .then(response => response.json())
-          .then(body => {
-              console.log(body);
+        $.ajax({
+            url: button.data('url'),
+            type: 'POST',
+            data: data,
+            beforeSend: function(xhr) {
+                button.text('Loading...');
+            },
+            success: function(response) {
+                if (response === 'empty') {
+                    button.text('No more photos').prop('disabled', true);
+                } else {
+                    $('.catalogue_photos').append(response);
+                    button.text('Load More');
+                }
+            }
+        });
+    });
+});
 
-              // En cas d'erreur
-              if (!body.success) {
-                  alert(response.data);
-                  return;
-              }
 
-              // Et en cas de réussite
-              $(this).hide(); // Cacher le formulaire
-              $('.comments').html(body.data); // Et afficher le HTML
-          });
-      });
-      
-  });
-})(jQuery);
+
+/***** LIGHTBOX*****/
+document.addEventListener('DOMContentLoaded', () => {
+  const lightbox = document.getElementById('.lightbox');
+  const closeBtn = document.getElementById('.lightboxClose');
+  const prevBtn = document.getElementById('.lightboxPrev');
+  const nextBtn = document.getElementById('.lightboxNext');
+  const photo = document.getElementById('.photo');
+  const middleImage = document.getElementById('.middleImage');
+  const modalReference = document.getElementById('.modal-reference');
+  const modalCategory = document.getElementById('.modal-category');
+
+  // Initial data for the images
+  const images = [
+      {
+          src: '<?php echo get_theme_file_uri() . "/assets/img/nathalie-15.jpeg.webp"; ?>',
+          reference: 'Reference 1',
+          category: 'Category 1'
+      },
+      // Add more images as needed
+  ];
+
+  let currentIndex = 0;
+
+  const updateLightbox = (index) => {
+      const image = images[index];
+      if (image) {
+          middleImage.src = image.src;
+          modalReference.textContent = image.reference;
+          modalCategory.textContent = image.category;
+      }
+  };
+
+  const showLightbox = (index) => {
+      currentIndex = index;
+      updateLightbox(currentIndex);
+      lightbox.style.display = 'block';
+  };
+
+  const hideLightbox = () => {
+      lightbox.style.display = 'none';
+  };
+
+  const showPrevImage = () => {
+      currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
+      updateLightbox(currentIndex);
+  };
+
+  const showNextImage = () => {
+      currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
+      updateLightbox(currentIndex);
+  };
+
+  // Event listeners
+  closeBtn.addEventListener('click', hideLightbox);
+  prevBtn.addEventListener('click', showPrevImage);
+  nextBtn.addEventListener('click', showNextImage);
+
+  // Initial setup
+  updateLightbox(currentIndex);
+});
+
+
+
+
