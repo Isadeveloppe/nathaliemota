@@ -44,38 +44,58 @@ endif ?>
 )); ?>
 
 <div class="filters">
-	<select name="" id="categorie">
+	<select class="filter" id="categorie">
 		<option value="">Catégorie</option>
 		<?php foreach ($categoriesList as $categorie) {
 			echo "<option value='" . $categorie->slug . "'>" . $categorie->name . "</option>";
 		}
-
+	
 		?>
 	</select>
 </div>
 
 
-<select name="" id="format">
+<select class="filter" id="format">
 	<option value="">Format</option>
 	<?php foreach ($formatsList as $format) {
 		echo "<option value='" . $format->slug . "'>" . $format->name . "</option>";
 	}
-
+	
 	?>
 </select>
 
-<select name="" id="trier par">
+<select class="filter" id="orderby">
 	<option value="">Trier par</option>
 	<?php foreach ($trierparsList as $trierpar) {
 		echo "<option value='" . $trierpar->slug . "'>" . $trierpar->name . "</option>";
 	}
-
+	
 	?>
 </select>
 
 
 
-<div class="catalogue_photos"> <?php get_template_part('templates-parts/photo-block'); ?> </div>
+<div class="catalogue_photos">
+<?php
+
+$args = array(
+  'post_type' => 'photographie',
+  'posts_per_page' => 8,
+);
+
+$query = new WP_Query($args);
+
+if ($query->have_posts()) : while ($query->have_posts()) : $query->the_post(); ?>
+
+<?php get_template_part('templates-parts/photo-block'); ?> 
+
+
+<?php endwhile;
+endif ?>
+
+<?php wp_reset_postdata(); ?>
+</div>
+<button id="load-more" data-page="1" data-url="<?php echo admin_url('admin-ajax.php'); ?>">Load More</button>
 
 <!-- LIGHTBOX -->
 <div class="lightbox">
@@ -83,22 +103,25 @@ endif ?>
 	<button class="lightbox_prev"><i class="fa-solid fa-arrow-left"></i></button>
 	<button class="lightbox_next"><i class="fa-solid fa-arrow-right"></i></button>
 
-	<div class="lightbox_container"></div>
-	<img class="photo" src=<?php echo get_theme_file_uri() . '/assets/img/nathalie-15.jpeg.webp'; ?>>
+	<div class="lightbox_container">
 
-	<!-- Image | Information de la Photo -->
-	<img src="" class="middle-image" />
-	<div class="info-photo">
-		<span id="modal-reference"></span>
-		<span id="modal-category"></span>
+		<a
+		href="<?php echo esc_url($image['url']);?>" class="link"> <img src="<?php echo esc_url($image['url']); ?>" class="photo">;
+		</a>
+	</div>
+
+
+
+		 <!--Image | Information de la Photo -->
+		<img src="" class="middle-image" />
+		<div class="info-photo">
+			<span id="modal-reference"></span>
+			<span id="modal-category"></span>
+		</div>
+
 	</div>
 </div>
 </div>
-</div>
-
-
-
-
 
 
 
