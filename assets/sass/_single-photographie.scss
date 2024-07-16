@@ -1,31 +1,84 @@
-.contactButton{
+.post-container{
+    margin: 100px;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.post-infos{
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+}
+
+.infos-photo{
+    display: flex;
+    flex-direction:column;
+    width: 50%;
+    max-width: 564px;
+    padding: 5px;
+    padding-bottom: 5px;
+    box-sizing: border-box;
+    border-bottom:solid 1px black;
+}
+
+.title{
+    font-family: 'Space Mono', monospace;
+    font-style:italic;
+    font-size:66px;
+    text-transform: uppercase;
+    margin-top:0px;
+    line-height: normal;
+}
+
+.taxonomies{
+    display:flex;
+    flex-wrap: wrap;
+    font-family: "Space Mono";
+    font-size: 16px;
+    text-transform: uppercase;
+    line-height:normal;
+    width:200px;
+}
+
+.image-post{
+    width:563px;
+    height:864px;
+}
+
+.contact-bloc{
+    display: flex;
+    flex: 1;
+    width: 50%;
+    max-width: 564px;
+    padding: 5px;
+    padding-bottom: 5px;
+    box-sizing: border-box;
+    justify-content: space-between;
+    align-items:center;
+}
+
+#ctaContact{
     display:flex;
     justify-content: center;
     align-items: center;
     background-color: #d8d8d8;
-    color:white;
+    color:black;
     border:none;
     width:272px;
     height:50px;
     cursor:pointer;
+    font-size:16px;
+}
+    
+.photos-container{
+    display:flex;
+    flex-wrap: wrap;
 }
 
-.list-container{
-    list-style:none;
-    font-family: 'space-mono';
-    font-size:25px;
-    font-weight: 400;
-    margin-top: 500px;
-}
-
-.container{
+.bloc-infos{
     display:flex;
     justify-content: space-between;
-}
-
-.imageContainer{
-    width:563px;
-    height:864px;
+    border-bottom:1px solid #000; 
 }
 
 .infos{
@@ -37,6 +90,18 @@
     align-items:center;
 }
 
+.p1{
+    font-family:'Poppins';
+    font-size: 18px;
+}
+
+.p2{
+    font-family: 'Space Mono';
+    font-size: 21px;
+    text-transform: uppercase;
+    margin-left:100px;
+    margin-top:0;
+}
 
 //****Miniatures****//
 
