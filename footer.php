@@ -1,3 +1,4 @@
+<?php get_template_part('templates-parts/lightbox'); ?>
 </main>
 
 <footer class=footer>
@@ -11,9 +12,11 @@
             ?>
             </div>
     </nav>
+   
 </footer>
 <?php get_template_part('templates-parts/pop-up'); ?>
 <?php get_template_part('templates-parts/modale'); ?>
+
 
 <?php wp_footer(); ?>
 

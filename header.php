@@ -10,7 +10,7 @@
 </head>
 
 <body <?php body_class(); ?>>
-<?php wp_body_open(); ?>
+  <?php wp_body_open(); ?>
   <header class="header">
     <nav class="navform">
       <a href="<?php echo home_url('/'); ?>">
@@ -24,13 +24,13 @@
         'menu_class'     => 'navbar',
       ));
       ?>
-      <button class="modal_burger modal-open">
+    </nav>
+      <button id="burger-button" class="modal_burger modal-open">
         <span class="line"></span>
         <span class="line"></span>
         <span class="line"></span>
       </button>
-    </nav>
-</header>
 
-<main>
+  </header>
 
+  <main>

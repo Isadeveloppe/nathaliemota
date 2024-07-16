@@ -5,50 +5,50 @@
 get_header(); ?>
 <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
 
-    <article class="post">
-
-      <h1 class="title"><?php the_title(); ?></h1>
-
-      <div class="container">
-
-        <div>
-          <ul class="list-container">
-            <li>Référence:<?php $value = get_field("reference_photo");
+    <article class="post-container">
+      <div class="post-infos">
+        <section class="infos-photo">
+          <h1 class="title"><?php the_title(); ?></h1>
+          <div class="taxonomies">
+            <p>Référence:<?php $value = get_field("reference_photo");
                           if ($value) {
                             echo wp_kses_post($value);
                           } else {
                             echo 'empty';
                           }
                           ?>
-            </li>
+            </p>
 
-            <li>Catégorie:<?php $categories = get_the_terms(get_the_ID(), 'categorie_photo');
+            <p>Catégorie:<?php $categories = get_the_terms(get_the_ID(), 'categorie_photo');
                           foreach ($categories as $categorie) {
                             echo $categorie->name;
                           }
                           ?>
-            </li>
+            </p>
 
-            <li>Format:<?php $formats = get_the_terms(get_the_ID(), 'format_photo');
-                        foreach ($formats as $format) {
-                          echo $format->name;
-                        }
-                        ?>
-            </li>
+            <p>Format:<?php $formats = get_the_terms(get_the_ID(), 'format_photo');
+                      foreach ($formats as $format) {
+                        echo $format->name;
+                      }
+                      ?>
+            </p>
 
-            <li>Type: <?php echo get_field('type'); ?></li>
+            <p>Type: <?php echo get_field('type'); ?></p>
 
-            <li>Année: <?php echo get_field('annee_photo'); ?></li>
-          </ul>
-        </div>
+            <p>Année: <?php echo get_field('annee_photo'); ?></p>
+          </div>
+          <hr class="line">
+        </section>
 
-        <div class="imageContainer"><?php the_content(); ?></div>
+        <section class="image-post"><?php the_content(); ?>
+      </div>
       </div>
 
-      <div class="infos">
-        <p>Cette photo vous intéresse?</p>
-        <button class="contactButton">Contact</button>
-
+      <div class="bloc-infos">
+        <div class="contact-bloc">
+          <p class="p1">Cette photo vous intéresse?</p>
+          <button id="ctaContact" data-ref-photo="<?php the_field('ref_photo', $post->ID); ?>">Contact</button>
+        </div>
 
         <div class="thumbnail_container">
           <div class="current_thumbnail">
@@ -64,8 +64,9 @@ get_header(); ?>
             $next_thumbnail = $next_post ? get_the_post_thumbnail_url($next_post->ID, 'thumbnail') : '';
             ?>
 
-            <!-- Conteneur pour afficher la miniature actuelle -->
-            <img id="displayed-thumbnail" src="<?php echo esc_url($current_thumbnail); ?>" alt="Current Thumbnail">
+            <!-- Conteneur pour afficher la miniature actuelle sans l'attribut alt -->
+            <img id="displayed-thumbnail" src="<?php echo esc_url($current_thumbnail); ?>">
+
 
             <nav class="navigation_arrows">
               <?php if ($prev_post) : ?>
@@ -75,13 +76,16 @@ get_header(); ?>
                 <a href="#" class="next-link" data-image="<?php echo esc_url($next_thumbnail); ?>">→</a>
               <?php endif; ?>
             </nav>
-
           </div>
         </div>
+
+
       </div>
+      
+    </article class="line" >
 
-
-      <p>Vous aimerez aussi</p><br>
+    <article class="photos-container">
+      <p class="p2">Vous aimerez aussi</p><br>
       <div class="imagesContainer">
         <div class="cardsContainer">
 
@@ -103,9 +107,7 @@ get_header(); ?>
 
           if ($query->have_posts()) : while ($query->have_posts()) : $query->the_post(); ?>
 
-              <a href="<?php echo esc_url(get_permalink()); ?>">
-                <div class="cardPhoto" style="background-image: url('<?php echo get_the_post_thumbnail_url(); ?>');"></div>
-              </a>
+              <?php get_template_part('templates-parts/photo-block'); ?>
 
         </div>
 
@@ -116,10 +118,7 @@ get_header(); ?>
 
       <?php wp_reset_postdata(); ?>
 
-
-
-    </article>
-
-<?php endwhile;
+  <?php endwhile;
 endif; ?>
-<?php get_footer() ?>
+    </article>
+    <?php get_footer() ?>
