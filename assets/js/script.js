@@ -1,73 +1,107 @@
 // *****Code pour la popup*****//
 document.addEventListener('DOMContentLoaded', function() {
-  const closeButton = document.querySelector('.popup-close');
-  const popupOverlay = document.querySelector('.popup-overlay');
-  const popupOpen = document.querySelector('.popup-open');
+    const closeButton = document.querySelector('.popup-close');
+    const popupOverlay = document.querySelector('.popup-overlay');
+    const menuContact = document.querySelector('.menu-item-contact a'); 
+    const ctaContact = document.getElementById('ctaContact');
 
-  const contactButton = document.getElementById('.contactButton');
+    function openPopup(refPhoto = null) {
+        if (refPhoto) {
+            const refPhotoField = document.querySelector('input[name="your-ref-photo"]');
+            if (refPhotoField) {
+                refPhotoField.value = refPhoto;
+            }
+        }
+        popupOverlay.style.display = 'flex';
+    }
 
-popupOpen.addEventListener('click',function() {
-  popupOverlay.style.display = 'flex';
+    function closePopup() {
+        popupOverlay.style.display = 'none';
+    }
+
+    if (menuContact) {
+        menuContact.addEventListener('click', function(event) {
+            event.preventDefault();
+            openPopup();
+        });
+    }
+
+    if (ctaContact) {
+        ctaContact.addEventListener('click', function() {
+            const refPhoto = ctaContact.getAttribute('data-ref-photo');
+            openPopup(refPhoto);
+        });
+    }
+
+    if (closeButton) {
+        closeButton.addEventListener('click', closePopup);
+    }
+
+    // Optionally, close the popup when clicking outside of it
+    popupOverlay.addEventListener('click', function(event) {
+        if (event.target === popupOverlay) {
+            closePopup();
+        }
+    });
 });
 
-closeButton.addEventListener('click', function() {
-      popupOverlay.style.display = 'none';
-  });
+
+
+
+
+//***** IMAGES MINIATURES*****//
+jQuery(document).ready(function ($) {
+    // Fonction pour changer l'image affichée
+    function changeThumbnail(imageUrl) {
+        $('#displayed-thumbnail').attr('src', imageUrl);
+    }
+
+    // Événements de survol pour les liens de navigation
+    $('.navigation_arrows a').hover(
+        function () {
+            const imageUrl = $(this).data('image');
+            if (imageUrl) {
+                changeThumbnail(imageUrl);
+            }
+        },
+    );
 });
 
-
-//***** Images miniatures*****//
-jQuery(document).ready(function($) {
-  // Fonction pour changer l'image affichée
-  function changeThumbnail(imageUrl) {
-      $('#displayed-thumbnail').attr('src', imageUrl);
-  }
-
-  // Événements de survol pour les liens de navigation
-  $('.navigation_arrows a').hover(function() {
-      const imageUrl = $(this).data('image');
-      if (imageUrl) {
-          changeThumbnail(imageUrl);
-      }
-  }, function() {
-      // Réinitialiser à l'image actuelle lorsqu'on ne survole plus la flèche
-      const currentImage = "<?php echo esc_url($current_thumbnail); ?>";
-      changeThumbnail(currentImage);
-  });
-});
 
 
 
 /*****FILTRES*****/
-jQuery(document).ready(function($) {
+document.addEventListener('DOMContentLoaded', function () {
     const filterList = document.querySelectorAll('.filter');
-    filterList.forEach((filter) => {
-        filter.addEventListener('change', function(event) {
+
+    filterList.forEach(filter => {
+        filter.addEventListener('change', function (event) {
             const categorie = document.getElementById('categorie').value;
             const format = document.getElementById('format').value;
             const orderby = document.getElementById('orderby').value;
             console.log('Filters:', { categorie, format, orderby });
 
-            $.ajax({
-                type: 'POST',
-                url: '/wp-admin/admin-ajax.php',
-                dataType: 'html',
-                data: {
+            fetch('/wp-admin/admin-ajax.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: new URLSearchParams({
                     action: 'filter_photos',
                     category: categorie,
                     format: format,
-                    orderby: orderby,
-                },
-                success: function(res) {
-                    $('.catalogue_photos').html(res);
-                },
-                error: function(xhr, status, error) {
-                    console.error('AJAX Error:', status, error);
-                }
-            });
+                    orderby: orderby
+                })
+            })
+            .then(response => response.text())
+            .then(data => {
+                document.querySelector('.catalogue_photos').innerHTML = data;
+            })
+            .catch(error => console.error('Error:', error));
         });
     });
 });
+
 
 
 /*****LOAD MORE*****/
@@ -82,6 +116,8 @@ jQuery(document).ready(function($) {
             page: page
         };
 
+        console.log('Sending AJAX request with data:', data);
+
         $.ajax({
             url: button.data('url'),
             type: 'POST',
@@ -90,80 +126,38 @@ jQuery(document).ready(function($) {
                 button.text('Loading...');
             },
             success: function(response) {
+                console.log('AJAX response:', response);
                 if (response === 'empty') {
                     button.text('No more photos').prop('disabled', true);
                 } else {
                     $('.catalogue_photos').append(response);
-                    button.text('Load More');
+                    button.text('Charger plus');
                 }
+            },
+            error: function(xhr, status, error) {
+                console.error('AJAX Error:', status, error);
             }
         });
     });
 });
 
 
+/*****BURGER MENU*****/
 
-/***** LIGHTBOX*****/
-document.addEventListener('DOMContentLoaded', () => {
-  const lightbox = document.getElementById('.lightbox');
-  const closeBtn = document.getElementById('.lightboxClose');
-  const prevBtn = document.getElementById('.lightboxPrev');
-  const nextBtn = document.getElementById('.lightboxNext');
-  const photo = document.getElementById('.photo');
-  const middleImage = document.getElementById('.middleImage');
-  const modalReference = document.getElementById('.modal-reference');
-  const modalCategory = document.getElementById('.modal-category');
-
-  // Initial data for the images
-  const images = [
-      {
-          src: '<?php echo get_theme_file_uri() . "/assets/img/nathalie-15.jpeg.webp"; ?>',
-          reference: 'Reference 1',
-          category: 'Category 1'
-      },
-      // Add more images as needed
-  ];
-
-  let currentIndex = 0;
-
-  const updateLightbox = (index) => {
-      const image = images[index];
-      if (image) {
-          middleImage.src = image.src;
-          modalReference.textContent = image.reference;
-          modalCategory.textContent = image.category;
-      }
-  };
-
-  const showLightbox = (index) => {
-      currentIndex = index;
-      updateLightbox(currentIndex);
-      lightbox.style.display = 'block';
-  };
-
-  const hideLightbox = () => {
-      lightbox.style.display = 'none';
-  };
-
-  const showPrevImage = () => {
-      currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
-      updateLightbox(currentIndex);
-  };
-
-  const showNextImage = () => {
-      currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
-      updateLightbox(currentIndex);
-  };
-
-  // Event listeners
-  closeBtn.addEventListener('click', hideLightbox);
-  prevBtn.addEventListener('click', showPrevImage);
-  nextBtn.addEventListener('click', showNextImage);
-
-  // Initial setup
-  updateLightbox(currentIndex);
-});
-
-
-
+document.addEventListener('DOMContentLoaded', function () {
+    const burgerButton = document.getElementById('burger-button');
+    const closeButton = document.getElementById('close-button');
+    const modalContent = document.querySelector('.modal_content');
+  
+    burgerButton.addEventListener('click', function () {
+      modalContent.style.display = 'block';
+      burgerButton.classList.add('close');
+    });
+  
+    closeButton.addEventListener('click', function () {
+      modalContent.style.display = 'none';
+      burgerButton.classList.remove('close');
+    });
+   });
+  
 
