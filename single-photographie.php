@@ -47,7 +47,13 @@ get_header(); ?>
       <div class="bloc-infos">
         <div class="contact-bloc">
           <p class="p1">Cette photo vous intéresse?</p>
-          <button id="ctaContact" data-ref-photo="<?php the_field('ref_photo', $post->ID); ?>">Contact</button>
+          <button id="ctaContact" data-ref-photo="<?php $value = get_field("reference_photo");
+                          if ($value) {
+                            echo wp_kses_post($value);
+                          } else {
+                            echo 'empty';
+                          }
+                          ?>">Contact</button>
         </div>
 
         <div class="thumbnail_container">

@@ -11,6 +11,16 @@ function enqueue_font_awesome() {
     wp_enqueue_style('font-awesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css');
 }
 
+
+function enqueue_select2_assets() {
+    wp_enqueue_style('select2-css', 'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css', array(), '4.1.0-rc.0');
+    wp_enqueue_script('select2-js', 'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js', array('jquery'), '4.1.0-rc.0', true);
+}
+
+add_action('wp_enqueue_scripts', 'enqueue_select2_assets');
+
+
+
 function nathaliemota_supports() {
        add_theme_support('title-tag');
        add_theme_support('post-thumbnails');

@@ -25,7 +25,7 @@
       ));
       ?>
     </nav>
-      <button id="burger-button" class="modal_burger modal-open">
+      <button id="burger-button" class="modal_burger">
         <span class="line"></span>
         <span class="line"></span>
         <span class="line"></span>

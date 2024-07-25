@@ -47,7 +47,7 @@ endif ?>
 
     <div class="taxo">
         <select class="filter" id="categorie">
-            <option value="">CATÉGORIES</option>
+            <option>CATÉGORIES</option>
             <?php foreach ($categoriesList as $categorie) {
                 echo "<option value='" . $categorie->slug . "'>" . $categorie->name . "</option>";
             }
@@ -55,19 +55,19 @@ endif ?>
         </select>
 
         <select class="filter" id="format">
-            <option value="">FORMATS</option>
+            <option>FORMATS</option>
             <?php foreach ($formatsList as $format) {
-                echo "<option value='" . $format->slug . "'>" . $format->name . "</option>";
+                echo "<option value='" . $format->slug . "'class='style'>" . $format->name . "</option>";
             }
             ?>
         </select>
     </div>
 
     <div class="trier-par">
-        <select class="filter" id="orderby">
-            <option value="">TRIER PAR</option>
+        <select class="filter" id="orderby" >
+            <option>TRIER PAR</option>
             <?php foreach ($trierparsList as $value =>$label) {
-                echo "<option value='" . $value . "'>" . $label . "</option>";
+                echo "<option value='" . $value . "' class='style'>" . $label . "</option>";
             }
             ?>
         </select>
