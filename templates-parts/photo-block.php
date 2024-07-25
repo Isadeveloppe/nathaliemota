@@ -1,5 +1,15 @@
 <div class="photo-cards">
-    <a href="<?php echo esc_url(get_permalink()); ?>" class="photo" data-href="<?php echo get_the_post_thumbnail_url(); ?>" data-category="Catégorie" data-reference="Référence">
+    <a href="<?php echo esc_url(get_permalink()); ?>" class="photo" data-href="<?php echo get_the_post_thumbnail_url(); ?>" data-category="<?php $categories = get_the_terms(get_the_ID(), 'categorie_photo');
+                          foreach ($categories as $categorie) {
+                            echo $categorie->name;
+                          }
+                      ?>" data-reference="<?php $value = get_field("reference_photo");
+                          if ($value) {
+                            echo wp_kses_post($value);
+                          } else {
+                            echo 'empty';
+                          }
+                      ?> ">
         <div class="cardPhoto" style="background-image: url('<?php echo get_the_post_thumbnail_url(); ?>');">
             <div class="overlay">
                 <div class="overlay-content">

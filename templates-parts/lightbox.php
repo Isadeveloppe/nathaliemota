@@ -1,13 +1,12 @@
 <!-- LIGHTBOX -->
 <div class="lightbox">
     <button class="lightbox_close"><i class="fa-solid fa-xmark"></i></button>
-    <button class="lightbox_prev"><i class="fa-solid fa-arrow-left"></i></button>
-    <button class="lightbox_next"><i class="fa-solid fa-arrow-right"></i></button>
+    <button class="lightbox_prev"> <img src="<?php echo get_theme_file_uri() . '/assets/img/Lbox_arrow-left.png'; ?>" alt="précédent"></button>
+    <button class="lightbox_next"> <img src="<?php echo get_theme_file_uri() . '/assets/img/Lbox_arrow-right.png'; ?>" alt="suivant"></button>
 
     <div class="image-container">
-        <img src="" class="middle-image" />
+        <img src="" class="middle-image"/>
         <div class="overlay-lightbox">
-            <i class="fa fa-eye eye-icon"></i>
             <span class="cat" id="lightbox-category"></span>
             <span class="ref" id="lightbox-reference"></span>
         </div>

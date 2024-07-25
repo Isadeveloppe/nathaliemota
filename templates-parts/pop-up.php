@@ -1,5 +1,5 @@
 <div class="popup-overlay">
-    <div class="popup-salon">
+    <div class="popup-salon fade-in-up">
         <div class="popup-header">
             <span class="popup-close">X</span>
         </div>      
