@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
         category: icon.closest('.photo').getAttribute('data-category'),
         reference: icon.closest('.photo').getAttribute('data-reference')
     }));
-
+console.log(images);
     function openLightbox(index) {
         console.log('Opening lightbox for index:', index);
         currentIndex = index;
@@ -24,7 +24,6 @@ document.addEventListener('DOMContentLoaded', function() {
         lightboxImage.src = src;
         lightboxCategory.textContent = `Catégorie: ${category}`;
         lightboxReference.textContent = `Référence: ${reference}`;
-        overlayLightbox.style.display = 'none';
         lightbox.style.display = 'flex';
     }
 

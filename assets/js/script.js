@@ -1,28 +1,35 @@
-// *****Code pour la popup*****//
 document.addEventListener('DOMContentLoaded', function() {
     const closeButton = document.querySelector('.popup-close');
     const popupOverlay = document.querySelector('.popup-overlay');
-    const menuContact = document.querySelector('.menu-item-contact a'); 
+    const menuContactItems = document.querySelectorAll('.menu-item-contact a'); 
     const ctaContact = document.getElementById('ctaContact');
 
     function openPopup(refPhoto = null) {
         if (refPhoto) {
-            const refPhotoField = document.querySelector('input[name="your-ref-photo"]');
+            const refPhotoField = document.querySelector('input[id="reference-photo"]');
             if (refPhotoField) {
                 refPhotoField.value = refPhoto;
             }
         }
         popupOverlay.style.display = 'flex';
+        document.body.classList.add('popup-open');
     }
 
     function closePopup() {
         popupOverlay.style.display = 'none';
+        document.body.classList.remove('popup-open');
     }
 
-    if (menuContact) {
-        menuContact.addEventListener('click', function(event) {
-            event.preventDefault();
-            openPopup();
+    if (menuContactItems) { 
+        menuContactItems.forEach(function(menuContact){
+            menuContact.addEventListener('click', function(event) {          
+                event.preventDefault();
+                document.getElementById('menu-modal').classList.remove('show');
+                document.querySelectorAll('.modal_burger').forEach(function(burgerButtonItem){
+                    burgerButtonItem.classList.remove('close');   
+                });
+                openPopup();
+            });
         });
     }
 
@@ -44,7 +51,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
-
 
 
 
@@ -144,20 +150,22 @@ jQuery(document).ready(function($) {
 
 /*****BURGER MENU*****/
 
-document.addEventListener('DOMContentLoaded', function () {
-    const burgerButton = document.getElementById('burger-button');
+document.addEventListener("DOMContentLoaded", function() {
+    const burgerButtons = document.querySelectorAll('.modal_burger');
     const closeButton = document.getElementById('close-button');
-    const modalContent = document.querySelector('.modal_content');
-  
-    burgerButton.addEventListener('click', function () {
-      modalContent.style.display = 'block';
-      burgerButton.classList.add('close');
-    });
-  
-    closeButton.addEventListener('click', function () {
-      modalContent.style.display = 'none';
-      burgerButton.classList.remove('close');
-    });
-   });
-  
+    const menuModal = document.getElementById('menu-modal');
+    const modalContent = document.getElementById('modal-content');
 
+    burgerButtons.forEach(function(burgerButton){
+        burgerButton.addEventListener('click', function() {
+            burgerButtons.forEach(function(burgerButtonItem){
+            burgerButtonItem.classList.toggle('close');   
+        })
+            modalContent.classList.toggle('show');
+            menuModal.classList.toggle('show');
+        });
+    })
+   
+});
+
+templateResult
