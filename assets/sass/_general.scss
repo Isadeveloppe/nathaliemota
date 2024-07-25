@@ -1,7 +1,3 @@
-*{
-    font-family: 'space-mono', sans-serif;
-}
-
 /*GENERAL*/
 .customize-support{ 
 	width:100%;
@@ -9,11 +5,6 @@
 	max-width: 1440px;
 	margin-left:auto;
 	margin-right: auto;
-}
-
-.body{
-
-	font-family: 'Space_Mono';
 }
 
 main{
@@ -24,29 +15,43 @@ main{
 	display:none;
 }
 
+
+
+/*Space_Mono*/
 @font-face {
-	font-family: 'Space_Mono';
-	font-style: normal;
+	font-family: 'Space Mono';
+	font-style:normal;
     font-weight: 400;
-	src: url('assets/fonts/Space_Mono/SpaceMono-Bold.ttf') format('true type');
+	src: url('/wp-content/themes/nathaliemota/assets/fonts/Space_Mono/SpaceMono-Regular.ttf') format('truetype');
 }
 
 @font-face {
-	font-family: 'Space_Mono';
-	src: url('assets/fonts/Space_Mono/SpaceMono-BoldItalic.ttf') format('true type');
+	font-family: 'Space Mono';
+	font-style:italic;
+    font-weight: 400;
+	src: url('/wp-content/themes/nathaliemota/assets/fonts/Space_Mono/SpaceMono-Italic.ttf') format('truetype');
 }
 
 @font-face {
-	font-family: 'Space_Mono';
-	src: url('assets/fonts/Space_Mono/SpaceMono-Italic.ttf') format('true type');
+	font-family: 'Space Mono';
+	font-style:Bold Italic;
+    font-weight: 700;
+	src: url('/wp-content/themes/nathaliemota/assets/fonts/Space_Mono/SpaceMono-BoldItalic.ttf') format('truetype');
 }
-@font-face {
-	font-family: 'Space_Mono';
-	src: url('assets/fonts/Space_Mono/SpaceMono-Regular.ttf') format('true type');
-}
+
+
+/*Poppins*/
 @font-face {
 	font-family: 'Poppins';
-	src: url('/assets/fonts/Poppins/Poppins-Black.ttf') format('true type');
+	font-style:normal;
+    font-weight: 300;
+	src: url('/wp-content/themes/nathaliemota/assets/fonts/Poppins/Poppins-Regular.ttf') format('truetype');
 }
 
+@font-face {
+    font-family: 'Poppins';
+	font-style:italic;
+    font-weight: 300;
+    src: url('/wp-content/themes/nathaliemota/assets/fonts/Poppins/Poppins-Italic.ttf') format('truetype');
+}
 

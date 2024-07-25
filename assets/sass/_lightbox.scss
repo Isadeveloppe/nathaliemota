@@ -4,27 +4,30 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0,0,0,.9);
-    z-index: 10;
+    background-color: rgba(0, 0, 0, 0.8); 
+    z-index: 10000; 
     overflow: auto;
-    animation: lightboxIn .5s;
+    animation: lightboxIn 0.5s;
+    display: none; 
+    justify-content: center;  
+    align-items: center;  
 }
 
 .lightbox_prev,
 .lightbox_next {
     border: none;
     width: 50px;
-    height: 100px; 
+    height: 100px;
     position: fixed;
     top: 50%;
     margin-top: -50px;
-    z-index: 11;
+    z-index: 10001;
     font-size: 40px;
     color: white;
     background: transparent;
-    opacity: .5;
+    opacity: 0.5;
     cursor: pointer;
-    transition: opacity .3s;
+    transition: opacity 0.3s;
 }
 
 .lightbox_prev:hover,
@@ -33,11 +36,11 @@
 }
 
 .lightbox_prev {
-    left: 400px;
+    left: 250px;
 }
 
 .lightbox_next {
-    right: 400px;
+    right: 250px;
 }
 
 .lightbox_close {
@@ -45,12 +48,12 @@
     height: 40px;
     border: none;
     position: fixed;
-    top: 100px;
-    right: 200px;
-    z-index: 12;
-    opacity: .5;
+    top: 20px;
+    right: 20px;
+    z-index: 10002;
+    opacity: 0.5;
     cursor: pointer;
-    transition: opacity .3s;
+    transition: opacity 0.3s;
     font-size: 50px;
     color: white;
     background: transparent;
@@ -60,24 +63,71 @@
     opacity: 1;
 }
 
-.lightbox_container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-left: 100px;
-    margin-right: 100px;
-    overflow: hidden;
-    position:relative;    
+.cat {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    font-size: 14px;
 }
 
-.photo{
-    position: initial;
-    max-width: 100vw;
-    max-height: 100vh;
-    object-fit: contain;
-    animation: lightboxIn .5s;
-    margin-left:700px;
-    margin-top:0;
+.ref {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    font-size: 14px;
+}
+
+#lightbox-category,
+#lightbox-reference{
+    font-family: 'poppins';
+    text-transform: uppercase;
+    font-size: 14px;
+}
+
+.image-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.middle-image {
+    max-width: 100%;
+    max-height: 80%;
+    margin: auto;
+    display: block;
+    height:900px;
+    width:750px;
+    object-fit: cover;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.overlay-lightbox {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: white;
+}
+
+.info-photo {
+    color: white;
+    text-align: center;
+    margin-top: 20px;
+}
+
+
+.hidden {
+    display: none;
 }
 
 @keyframes lightboxIn {

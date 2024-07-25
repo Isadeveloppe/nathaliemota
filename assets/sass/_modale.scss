@@ -1,0 +1,105 @@
+.modal_burger {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background: transparent;
+    right: 15px;
+    gap: 6px;
+    width: 40px;
+    height: 40px;
+    top: 12px;
+    cursor: pointer;
+}
+
+.modal_burger .line {
+    display: block;
+    height: 2px;
+    background-color: #000;
+    width: 100%;
+    margin: 0;
+    transition: all .3s ease-in-out;
+}
+
+.modal_burger.close .line:nth-child(2) {
+    opacity: 0;
+}
+
+.modal_burger.close .line:first-child {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.modal_burger.close .line:last-child {
+    transform: rotate(-45deg) translate(5px, -5px);
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    animation:fade-in-up 0.8s;
+}
+
+.modal.show {
+    display: flex;
+}
+
+.modal_content {
+    background: #E00000;
+    font-size: 20px;
+    width: 100%;
+    height: 100vh;
+    margin-left: 0;
+    z-index: 1;
+}
+
+.modal_content.show {
+    display: flex;
+}
+
+.links {
+    display: flex;
+    position:absolute;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 3em;
+    list-style: none;
+    padding: 0;
+    margin-left: 80px;
+    top:150px;
+}
+
+.links li > a {
+    text-decoration: none;
+    font-size: 44px;
+    color: white;
+}
+
+.modal_burger.close {
+    top: 20px;
+    right: 50px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: black;
+    cursor: pointer;
+}
+
+@keyframes fade-in-up {
+    from {
+      opacity: 0;
+      transform: translateY(50px);
+    }    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }

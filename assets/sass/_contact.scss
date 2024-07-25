@@ -7,7 +7,7 @@
     border: solid 5px black;
     display:block;
     margin-left:auto;
-  
+    
     }
 
 .wpcf7-form-control{
@@ -19,15 +19,15 @@
 }
 
 .form-title{
-    display:flex;
-    font-size:44px;
+    font-size:46px;
     font-weight:500;
     font-style:italic;
     margin-top:0px;
-    left:-110px;
+    font-family: 'Space Mono';
 }
 
 .form-label{
+    font-family:'Poppins';
     font-size:12px;
     font-weight:500;
     line-height:18px;
@@ -39,6 +39,7 @@
  justify-content: center;
  align-items:center;
  flex-direction:column;
+ margin-top:-30px;
 }
 
 .wpcf7-submit{
@@ -52,4 +53,15 @@
 
 .wpcf7-textarea{
   height:210px!important;
+  font-family: 'Space Mono';
 }
+
+#reference-photo{
+  width:265px;
+  height:35px;
+  line-height:12px;
+  border:solid 1px black;
+  border-radius: 6px;
+  text-decoration:none;
+}
+

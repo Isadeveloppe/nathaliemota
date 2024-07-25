@@ -6,20 +6,23 @@
     display: none;
     justify-content: center;
     align-items: center;
-    top: 0;
-    left: 0;
-}
+    top: 10px;   
+    left:0;
+    z-index:10020;
+        }
 
 .popup-salon {
     position: relative;
     background: white;
-    max-width: 680px;
     padding: 30px;
+    animation:fade-in-up 0.7s;
 }
 
 .popup-btn, .popup-salon .wpcf7-submit {
     display: inline-block;
     background-color: #d8d8d8;
+    font-family:'Poppins'!important;
+    font-size:12px!important;
     line-height: 20px;
     padding: 6px 16px;
     color: black;
@@ -46,3 +49,15 @@
 .popup-close:hover {
     transform: rotate(180deg);
 }
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }    to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
