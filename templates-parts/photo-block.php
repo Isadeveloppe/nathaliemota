@@ -13,8 +13,8 @@
         <div class="cardPhoto" style="background-image: url('<?php echo get_the_post_thumbnail_url(); ?>');">
             <div class="overlay">
                 <div class="overlay-content">
-                    <i class="fa fa-eye eye-icon"></i>
-                    <img class="fullscreen" src="<?php echo get_theme_file_uri() . '/assets/img/fullscreen.png'; ?>" alt="">
+                <button class="eyeIcon"> <img src="<?php echo get_theme_file_uri() . '/assets/img/icon_eye.png'; ?>" alt="oeil"></button>
+                    <img class="fullscreen" src="<?php echo get_theme_file_uri() . '/assets/img/fullscreen.png'; ?>" alt="plein écran">
                     <span class="ref">Référence: <?php $value = get_field("reference_photo");
                           if ($value) {
                             echo wp_kses_post($value);
