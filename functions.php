@@ -39,21 +39,20 @@ function enqueue_lightbox_scripts() {
 }
 add_action('wp_enqueue_scripts', 'enqueue_lightbox_scripts');
 
+// Enqueue script with nonce
+function my_enqueue_scripts() {
+    wp_enqueue_script('my-ajax-script', get_template_directory_uri() .'/assets/js/script.js', array('jquery'), null, true);
 
-/***** SECUITE AJAX AVEC NONCE*****/
-function nathaliemota_enqueue_scripts() {
-    wp_enqueue_script('nathaliemota-ajax-script', get_template_directory_uri() . '/js/nathaliemota-ajax-script.js', array('jquery'), null, true);
-
-    // Passer les variables au script JS
-    wp_localize_script('nathaliemota-ajax-script', 'nathaliemota_obj', array(
+    // Pass nonce to JavaScript
+    wp_localize_script('my-ajax-script', 'my_ajax_obj', array(
         'ajax_url' => admin_url('admin-ajax.php'),
-        'nonce' => wp_create_nonce('nathaliemota_nonce')
+        'nonce' => wp_create_nonce('my_nonce')
     ));
 }
-add_action('wp_enqueue_scripts', 'nathaliemota_enqueue_scripts');
+add_action('wp_enqueue_scripts', 'my_enqueue_scripts');
 
 
-/*****FILTRES*****/
+
 function nathaliemota_load_filter() {
     // Vérification de sécurité
     if (
@@ -113,8 +112,6 @@ function nathaliemota_load_filter() {
 }
 add_action('wp_ajax_nathaliemota_load_filter', 'nathaliemota_load_filter');
 add_action('wp_ajax_nopriv_nathaliemota_load_filter', 'nathaliemota_load_filter');
-
-
 
 
 /****BOUTON LOAD MORE*****/
