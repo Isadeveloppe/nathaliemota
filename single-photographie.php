@@ -100,6 +100,7 @@ get_header(); ?>
           $args = array(
             'post_type' => 'photographie',
             'posts_per_page' => 2,
+            'orderby' => 'rand',
             'tax_query' => [
               [
                 'taxonomy' => 'categorie_photo',

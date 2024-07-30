@@ -6,21 +6,13 @@ function theme_enqueue_styles() {
     wp_enqueue_script( 'nathaliemota-script', get_template_directory_uri() . '/assets/js/script.js', array( 'jquery' ));
 }
 
+/*****LIBRAIRIE FONTAWESOME*****/
 add_action('wp_enqueue_scripts', 'enqueue_font_awesome');
 function enqueue_font_awesome() {
     wp_enqueue_style('font-awesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css');
 }
 
-
-function enqueue_select2_assets() {
-    wp_enqueue_style('select2-css', 'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css', array(), '4.1.0-rc.0');
-    wp_enqueue_script('select2-js', 'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js', array('jquery'), '4.1.0-rc.0', true);
-}
-
-add_action('wp_enqueue_scripts', 'enqueue_select2_assets');
-
-
-
+/****AJOUT DU TITRE DE LA PAGE, DES IMAGES MISES EN AVANT*****/
 function nathaliemota_supports() {
        add_theme_support('title-tag');
        add_theme_support('post-thumbnails');
@@ -29,31 +21,48 @@ function nathaliemota_supports() {
     }
 add_action('init','nathaliemota_supports');
 
+
+/*****AJOUT DU HEADER ET DU FOOTER PERSONNALISES*****/
    function enregistre_mon_menu() {
     register_nav_menu( 'header', __( 'Header' ) );
     register_nav_menu( 'footer', __( 'Footer' ) );
 }
 add_action( 'init', 'enregistre_mon_menu' );
 
+
 /*****LIGHTBOX*****/
 function enqueue_lightbox_scripts() {
-    // Enqueue the main stylesheet (if necessary)
     wp_enqueue_style('nathaliemota', get_stylesheet_uri());
-
-    // Enqueue the lightbox stylesheet (if it exists)
     wp_enqueue_style('lightbox-style', get_template_directory_uri() . '/style.css', array(), '1.0.0', 'all');
-
-    // Enqueue jQuery (if not already included by WordPress)
     wp_enqueue_script('jquery');
-
-    // Enqueue the lightbox script
     wp_enqueue_script('lightbox-script', get_template_directory_uri() . '/assets/js/lightbox.js', array('jquery'), '1.0.0', true);
 }
 add_action('wp_enqueue_scripts', 'enqueue_lightbox_scripts');
 
 
+/***** SECUITE AJAX AVEC NONCE*****/
+function nathaliemota_enqueue_scripts() {
+    wp_enqueue_script('nathaliemota-ajax-script', get_template_directory_uri() . '/js/nathaliemota-ajax-script.js', array('jquery'), null, true);
+
+    // Passer les variables au script JS
+    wp_localize_script('nathaliemota-ajax-script', 'nathaliemota_obj', array(
+        'ajax_url' => admin_url('admin-ajax.php'),
+        'nonce' => wp_create_nonce('nathaliemota_nonce')
+    ));
+}
+add_action('wp_enqueue_scripts', 'nathaliemota_enqueue_scripts');
+
+
 /*****FILTRES*****/
-function filter_photos() {
+function nathaliemota_load_filter() {
+    // Vérification de sécurité
+    if (
+        ! isset($_REQUEST['nonce']) ||
+        ! wp_verify_nonce($_REQUEST['nonce'], 'nathaliemota_nonce')
+    ) {
+        wp_send_json_error("Vous n’avez pas l’autorisation d’effectuer cette action.", 403);
+    }
+
     $categorie_photo = isset($_POST['category']) ? sanitize_text_field($_POST['category']) : '';
     $format_photo = isset($_POST['format']) ? sanitize_text_field($_POST['format']) : '';
     $orderby = isset($_POST['orderby']) ? sanitize_text_field($_POST['orderby']) : '';
@@ -80,7 +89,7 @@ function filter_photos() {
     }
 
     if ($orderby) {
-        $args['order'] = $orderby;
+        $args['order'] = $orderby === 'asc' ? 'ASC' : 'DESC';
         $args['orderby'] = 'meta_value_num';
         $args['meta_key'] = 'annee_photo';
     }
@@ -96,20 +105,19 @@ function filter_photos() {
             $response .= ob_get_clean();
         }
     } else {
-        $response = 'empty';
+        $response = 'Photos non trouvées';
     }
 
     echo $response;
     wp_die();
 }
-add_action('wp_ajax_filter_photos', 'filter_photos');
-add_action('wp_ajax_nopriv_filter_photos', 'filter_photos');
+add_action('wp_ajax_nathaliemota_load_filter', 'nathaliemota_load_filter');
+add_action('wp_ajax_nopriv_nathaliemota_load_filter', 'nathaliemota_load_filter');
 
 
 
 
 /****BOUTON LOAD MORE*****/
-
 function load_more_photos() {
     // Vérification de la variable page
     $paged = isset($_POST['page']) ? intval($_POST['page']) : 1;
@@ -131,7 +139,7 @@ function load_more_photos() {
             $response .= ob_get_clean();
         endwhile;
     else:
-        $response = 'empty';
+        $response = 'Pas de photos supplémentaires';
     endif;
 
     wp_reset_postdata();
@@ -142,13 +150,6 @@ add_action('wp_ajax_load_more_photos', 'load_more_photos');
 add_action('wp_ajax_nopriv_load_more_photos', 'load_more_photos');
 
 
-
-
-
-function ajouter_google_fonts() {
-    wp_enqueue_style( 'google-fonts', 'https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap', false );
-}
-add_action( 'wp_enqueue_scripts', 'ajouter_google_fonts' );
 
 
    

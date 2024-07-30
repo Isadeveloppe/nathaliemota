@@ -57,6 +57,11 @@ main {
   font-weight: 300;
   src: url("/wp-content/themes/nathaliemota/assets/fonts/Poppins/Poppins-Italic.ttf") format("truetype");
 }
+.p3 {
+  font-family: "space-mono";
+  font-size: 16px;
+}
+
 /*HEDAER*/
 .header {
   position: relative;
@@ -90,6 +95,11 @@ main {
   text-decoration: none !important;
   font-family: "Space Mono", monospace;
   font-size: 16px;
+}
+
+.menu-item a:hover {
+  color: #fe5858;
+  font-weight: 700;
 }
 
 .logo {
@@ -185,8 +195,13 @@ main {
   color: white;
 }
 
+.links a:hover {
+  color: #E00000;
+  font-style: bold;
+}
+
 .modal_burger.close {
-  top: 20px;
+  top: 12px;
   right: 50px;
   background: none;
   border: none;
@@ -307,7 +322,7 @@ main {
   align-items: center;
   top: 10px;
   left: 0;
-  z-index: 10020;
+  z-index: 1400;
 }
 
 .popup-salon {
@@ -433,6 +448,7 @@ main {
     border-radius: 6px;
     transition: all 0.4s ease;
     margin-left: 44px;
+    margin-top: -190px;
   }
   .popup-close {
     position: absolute;
@@ -919,11 +935,12 @@ main {
 
 .cat {
   position: absolute;
-  bottom: 10px;
-  right: 10px;
+  bottom: 35px;
+  right: 0px;
   font-family: "poppins";
   text-transform: uppercase;
   font-size: 14px;
+  z-index: 70;
 }
 
 .fullscreen {
@@ -964,9 +981,12 @@ main {
   text-align: center;
 }
 
-.eye-icon {
-  font-size: 30px;
+.eyeIcon {
+  font-size: 20px;
+  background: none;
+  border: none;
   margin-bottom: 10px;
+  cursor: pointer;
 }
 
 .lightbox {
@@ -976,7 +996,7 @@ main {
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.8);
-  z-index: 10000;
+  z-index: 100;
   overflow: auto;
   animation: lightboxIn 0.5s;
   display: none;
@@ -1046,6 +1066,7 @@ main {
   bottom: 10px;
   left: 10px;
   font-size: 14px;
+  z-index: 2;
 }
 
 #lightbox-category,
@@ -1074,6 +1095,7 @@ main {
   background-position: center;
   position: relative;
   overflow: hidden;
+  z-index: 1;
 }
 
 .overlay-lightbox {

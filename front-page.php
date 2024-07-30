@@ -26,9 +26,14 @@ if ($query->have_posts()) : while ($query->have_posts()) : $query->the_post(); ?
 endif ?>
 <?php wp_reset_postdata(); ?>
 
-<div class="l"></div>
 
+<?php
+// Générer un nonce pour la sécurité
+$nonce = wp_create_nonce('nathaliemota_nonce');
+?>
 <div class="selection">
+    <input type="hidden" id="nathaliemota_nonce" value="<?php echo esc_attr($nonce); ?>" />
+    
     <?php 
     $categoriesList = get_terms(array(
         'taxonomy'   => 'categorie_photo',
@@ -42,12 +47,11 @@ endif ?>
         'asc' => 'à partir des plus anciennes',
         'desc' =>'à partir des plus récentes',
     )
-   
     ?>
 
     <div class="taxo">
         <select class="filter" id="categorie">
-            <option>CATÉGORIES</option>
+            <option value="">CATÉGORIES</option>
             <?php foreach ($categoriesList as $categorie) {
                 echo "<option value='" . $categorie->slug . "'>" . $categorie->name . "</option>";
             }
@@ -55,24 +59,25 @@ endif ?>
         </select>
 
         <select class="filter" id="format">
-            <option>FORMATS</option>
+            <option value="">FORMATS</option>
             <?php foreach ($formatsList as $format) {
-                echo "<option value='" . $format->slug . "'class='style'>" . $format->name . "</option>";
+                echo "<option value='" . $format->slug . "'>" . $format->name . "</option>";
             }
             ?>
         </select>
     </div>
 
     <div class="trier-par">
-        <select class="filter" id="orderby" >
-            <option>TRIER PAR</option>
+        <select class="filter" id="orderby">
+            <option value="">TRIER PAR</option>
             <?php foreach ($trierparsList as $value =>$label) {
-                echo "<option value='" . $value . "' class='style'>" . $label . "</option>";
+                echo "<option value='" . $value . "'>" . $label . "</option>";
             }
             ?>
         </select>
     </div>
 </div>
+
 
 
 <div class="catalogue-container">
@@ -97,6 +102,6 @@ endif ?>
 </div>
 </div>
 
-<button id="load-more" data-page="1" data-url="<?php echo admin_url('admin-ajax.php'); ?>">Charger plus</button
+<button id="load-more" data-page="1" data-url="<?php echo admin_url('admin-ajax.php'); ?>">Charger plus</button>
 
 <?php get_footer(); ?>
