@@ -1,3 +1,4 @@
+/*****POPUP*****/
 document.addEventListener('DOMContentLoaded', function() {
     const closeButton = document.querySelector('.popup-close');
     const popupOverlay = document.querySelector('.popup-overlay');
@@ -44,7 +45,7 @@ document.addEventListener('DOMContentLoaded', function() {
         closeButton.addEventListener('click', closePopup);
     }
 
-    // Optionally, close the popup when clicking outside of it
+    // Optionnel: la popup se ferme lorsqu'on clique n'importe où sur l'écran
     popupOverlay.addEventListener('click', function(event) {
         if (event.target === popupOverlay) {
             closePopup();
@@ -53,9 +54,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
-
-
-//***** IMAGES MINIATURES*****//
+//*****IMAGES MINIATURES*****//
 jQuery(document).ready(function ($) {
     // Fonction pour changer l'image affichée
     function changeThumbnail(imageUrl) {
@@ -74,8 +73,6 @@ jQuery(document).ready(function ($) {
 });
 
 
-
-
 /*****FILTRES*****/
 document.addEventListener('DOMContentLoaded', function () {
     const filterList = document.querySelectorAll('.filter');
@@ -85,6 +82,8 @@ document.addEventListener('DOMContentLoaded', function () {
             const categorie = document.getElementById('categorie').value;
             const format = document.getElementById('format').value;
             const orderby = document.getElementById('orderby').value;
+            const nonce = document.getElementById('nathaliemota_nonce').value;
+            
             console.log('Filters:', { categorie, format, orderby });
 
             fetch('/wp-admin/admin-ajax.php', {
@@ -93,24 +92,25 @@ document.addEventListener('DOMContentLoaded', function () {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 },
                 body: new URLSearchParams({
-                    action: 'filter_photos',
+                    action: 'nathaliemota_load_filter',
                     category: categorie,
                     format: format,
-                    orderby: orderby
+                    orderby: orderby,
+                    nonce: nonce
                 })
             })
             .then(response => response.text())
             .then(data => {
                 document.querySelector('.catalogue_photos').innerHTML = data;
             })
-            .catch(error => console.error('Error:', error));
+            .catch(error => console.error('Erreur:', error));
         });
     });
 });
 
 
 
-/*****LOAD MORE*****/
+/*****LOAD MORE-CHARGER PLUS*****/
 jQuery(document).ready(function($) {
     let page = 1;
 
@@ -149,7 +149,6 @@ jQuery(document).ready(function($) {
 
 
 /*****BURGER MENU*****/
-
 document.addEventListener("DOMContentLoaded", function() {
     const burgerButtons = document.querySelectorAll('.modal_burger');
     const closeButton = document.getElementById('close-button');
@@ -165,7 +164,5 @@ document.addEventListener("DOMContentLoaded", function() {
             menuModal.classList.toggle('show');
         });
     })
-   
+  
 });
-
-templateResult
