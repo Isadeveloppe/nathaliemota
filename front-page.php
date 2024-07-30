@@ -26,7 +26,6 @@ if ($query->have_posts()) : while ($query->have_posts()) : $query->the_post(); ?
 endif ?>
 <?php wp_reset_postdata(); ?>
 
-
 <?php
 // Générer un nonce pour la sécurité
 $nonce = wp_create_nonce('nathaliemota_nonce');
@@ -46,7 +45,7 @@ $nonce = wp_create_nonce('nathaliemota_nonce');
     $trierparsList = array(
         'asc' => 'à partir des plus anciennes',
         'desc' =>'à partir des plus récentes',
-    )
+    );
     ?>
 
     <div class="taxo">
@@ -77,8 +76,6 @@ $nonce = wp_create_nonce('nathaliemota_nonce');
         </select>
     </div>
 </div>
-
-
 
 <div class="catalogue-container">
 <div class="catalogue_photos">
