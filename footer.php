@@ -15,7 +15,7 @@
    
 </footer>
 <?php get_template_part('templates-parts/pop-up'); ?>
-<?php get_template_part('templates-parts/modale'); ?>
+<?php get_template_part('templates-parts/burger'); ?>
 
 
 <?php wp_footer(); ?>
