@@ -149,20 +149,34 @@ jQuery(document).ready(function($) {
 
 
 /*****BURGER MENU*****/
-document.addEventListener("DOMContentLoaded", function() {
-    const burgerButtons = document.querySelectorAll('.modal_burger');
-    const closeButton = document.getElementById('close-button');
-    const menuModal = document.getElementById('menu-modal');
-    const modalContent = document.getElementById('modal-content');
+window.onload = function () {
+    const burger = document.querySelector(".menu-toggle");
+    const navMenu = document.querySelector("#nav-menu");
 
-    burgerButtons.forEach(function(burgerButton){
-        burgerButton.addEventListener('click', function() {
-            burgerButtons.forEach(function(burgerButtonItem){
-            burgerButtonItem.classList.toggle('close');   
-        })
-            modalContent.classList.toggle('show');
-            menuModal.classList.toggle('show');
+    if (burger && navMenu) {
+        burger.addEventListener("click", function () {
+            if (!navMenu.classList.contains("open")) {
+                navMenu.classList.add("open");
+                navMenu.classList.remove("close");
+            } else {
+                navMenu.classList.remove("open");
+                navMenu.classList.add("close");
+            }
+            burger.classList.toggle("open");
+
+            const expanded = burger.getAttribute("aria-expanded") === "true" || false;
+            burger.setAttribute("aria-expanded", !expanded);
         });
-    })
-  
-});
+
+        navMenu.addEventListener("click", function (event) {
+            if (event.target.tagName === 'A') {
+                burger.classList.remove("open");
+                navMenu.classList.remove("open");
+                navMenu.classList.add("close");
+                burger.setAttribute("aria-expanded", false);
+            }
+        });
+    } else {
+        console.error("Le menu burger ou le navMenu n'a pas été trouvé dans le DOM.");
+    }
+};
