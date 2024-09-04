@@ -1,0 +1,84 @@
+.burger-menu {
+    position: relative;
+    z-index: 100;
+}
+
+.menu-toggle {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background: transparent;
+    right: 15px;
+    gap: 6px;
+    width: 40px;
+    height: 40px;
+    top: 20px;
+    cursor: pointer;
+    z-index: 110;
+}
+
+.menu-toggle .line {
+    width: 30px;
+    height: 3px;
+    background-color: #333;
+    transition: all 0.3s ease;
+}
+
+.menu-toggle.open .line:nth-child(2) {
+    opacity: 0;
+}
+
+.menu-toggle.open .line:first-child {
+    transform: translateY(11px) rotate(45deg);
+}
+
+.menu-toggle.open .line:last-child {
+    transform: translateY(-6px) rotate(-45deg);
+}
+
+.menu-modal {
+    position: fixed;
+    top: 0;
+    right: -100%; /* Commence hors de l'écran à droite */
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    background-color: #E00000;
+    transition: right 1.2s ease; /* Transition pour le glissement */
+}
+
+.menu-modal.open {
+    right: 0; /* Glisse dans l'écran depuis la droite */
+}
+
+.menu-modal.close {
+    right: -100%; /* Glisse vers l'extérieur vers la droite */
+}
+
+.links {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 3em;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.links li > a {
+    text-decoration: none;
+    font-size: 44px;
+    color: white;
+}
+
+.links a:hover {
+    color: #ffff;
+    font-weight: bold;
+}
